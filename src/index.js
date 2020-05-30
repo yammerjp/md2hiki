@@ -75,6 +75,9 @@ function printNode(node) {
     case 'li':
       print("#");
       break;
+    case 'hr':
+      print('\n----\n');
+      return;
     case 'strike':
       print("==");
       node.child.forEach( node => printNode(node) );
