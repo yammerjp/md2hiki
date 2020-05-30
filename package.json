@@ -1,0 +1,10 @@
+{
+  "name": "md2hiki",
+  "version": "1.0.0",
+  "description": "Convert markdown syntax to hiki syntax",
+  "main": "index.js",
+  "repository": "https://github.com/basd4g/md2hiki.git",
+  "author": "Keisuke Nakayama",
+  "license": "MIT",
+  "private": false
+}
