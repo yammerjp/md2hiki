@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "Convert markdown syntax to hiki syntax",
   "main": "./src/index.js",
-  "bin" : {
-    "md2hiki" : "./bin/md2hiki"
+  "bin": {
+    "md2hiki": "./bin/md2hiki"
   },
   "scripts": {
-    "sample" : "./bin/md2hiki sample.md"
+    "sample": "./bin/md2hiki sample.md"
   },
   "repository": "https://github.com/basd4g/md2hiki.git",
   "author": "Keisuke Nakayama",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "marked": "^1.1.0"
+  }
 }
