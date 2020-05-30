@@ -4,12 +4,39 @@ const { promises : fs } = require('fs');
 const marked = require('marked');
 const { html2json } = require('html2json');
 
+async function main() {
+  const input_file_name = process.argv[2];
+  const output_file_name = process.argv[3];
+
+  if (typeof input_file_name !== 'string'  || typeof output_file_name !== 'string') {
+    console.error('Usage: md2hiki path/to/input/file path/to/output/file');
+    process.exit(1);
+  }
+  const markdown = await fs.readFile( input_file_name, { encoding: 'utf-8' })
+
+  const html = marked( markdown );
+  const dom = html2json( html );
+
+  if ( dom.node !== 'root') {
+    console.error('parse html2json is failed');
+    process.exit(1);
+  } 
+
+  dom.child.forEach( node => {
+    printNode(node);
+  });
+
+  await printStdout(output_file_name);
+}
+
 let printString = '';
+
 function print(text) {
   printString += text;
 }
-function printStdout() {
-  console.log(printString);
+
+async function printStdout(file_name) {
+  await fs.writeFile( file_name, printString, {encoding: 'utf-8'});
 };
 
 function printNode(node) {
@@ -60,23 +87,7 @@ function printNode(node) {
   node.child.forEach( node => printNode(node) );
 }
 
-fs.readFile( process.argv[2], { encoding: 'utf-8' }).then( markdown => {
-
-  const html = marked( markdown );
-  const dom = html2json( html );
-
-  if ( dom.node !== 'root') {
-    console.error('parse html2json is failed');
-    process.exit(1);
-  } 
-
-  dom.child.forEach( node => {
-    printNode(node);
-  });
-
-  printStdout();
-});
-
+main();
 
 /*
 {
