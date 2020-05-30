@@ -73,7 +73,7 @@ function printNode(node) {
     case 'ul':
       break;
     case 'li':
-      print("#");
+      print("*");
       break;
     case 'hr':
       print('\n----\n');
