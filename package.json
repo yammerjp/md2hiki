@@ -14,6 +14,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "html2json": "^1.0.2",
     "marked": "^1.1.0"
   }
 }
