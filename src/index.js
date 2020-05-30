@@ -24,15 +24,40 @@ function printNode(node) {
   switch ( node.tag ) {
     case 'h1':
       print('!');
-      node.child.forEach( node => printNode(node) );
-      return;
+      break;
     case 'h2':
       print('!!');
+      break;
+    case 'h3':
+      print('!!!');
+      break;
+    case 'h4':
+      print('!!!!');
+      break;
+    case 'a':
+      print(`[[`);
       node.child.forEach( node => printNode(node) );
+      print(`|${node.attr.href}]]`);
+      return;
+    case 'p':
+      node.child.forEach( node => printNode(node) );
+      print(`\n`);
+      return;
+    case 'ul':
+      break;
+    case 'li':
+      print("#");
+      break;
+    case 'strike':
+      print("==");
+      node.child.forEach( node => printNode(node) );
+      print("==");
       return;
     default :
-      console.error(node);
+      console.error(`unknown node : ${node}`);
+      process.exit(1);
   }
+  node.child.forEach( node => printNode(node) );
 }
 
 fs.readFile( process.argv[2], { encoding: 'utf-8' }).then( markdown => {
