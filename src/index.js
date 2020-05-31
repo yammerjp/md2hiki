@@ -1,18 +1,10 @@
 `use strict`
-
 const { promises : fs } = require('fs');
 const marked = require('marked');
 const { html2json } = require('html2json');
 
 async function main() {
-  const input_file_name = process.argv[2];
-  const output_file_name = process.argv[3];
-
-  if (typeof input_file_name !== 'string'  || typeof output_file_name !== 'string') {
-    console.error('Usage: md2hiki path/to/input/file path/to/output/file');
-    process.exit(1);
-  }
-  const markdown = await fs.readFile( input_file_name, { encoding: 'utf-8' })
+  const markdown = await fs.readFile( '/dev/stdin', { encoding: 'utf-8' })
 
   const html = marked( markdown );
   const dom = html2json( html );
@@ -26,7 +18,7 @@ async function main() {
     printNode(node);
   });
 
-  await printStdout(output_file_name);
+  await printStdout();
 }
 
 let printString = '';
@@ -35,8 +27,8 @@ function print(text) {
   printString += text;
 }
 
-async function printStdout(file_name) {
-  await fs.writeFile( file_name, printString, {encoding: 'utf-8'});
+async function printStdout() {
+  await fs.writeFile('/dev/stdout', printString, {encoding: 'utf-8'});
 };
 
 function printNode(node) {
@@ -96,7 +88,7 @@ function printNode(node) {
 main();
 
 /*
-{
+dom = {
   node: 'root',
   child: [
     { node: 'element', tag: 'h1', attr: [Object], child: [Array] },

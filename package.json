@@ -7,7 +7,7 @@
     "md2hiki": "./bin/md2hiki"
   },
   "scripts": {
-    "sample": "./bin/md2hiki sample.md sample.hiki"
+    "sample": "cat sample.md | ./bin/md2hiki > sample.hiki"
   },
   "repository": "https://github.com/basd4g/md2hiki.git",
   "author": "Keisuke Nakayama",
